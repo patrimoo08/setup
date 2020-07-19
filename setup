@@ -1,0 +1,39 @@
+#!/bin/sh
+
+#initial update packages
+apt-get update
+
+#git install
+apt-get install -y git
+git --version
+
+#go install
+apt-get install -y golang
+go version
+
+#docker install
+apt-get install -y docker.io
+docker version
+
+#fzf install
+apt-get install -y fzf
+#need to figure out command for version of fzf
+
+#cli kubectl install
+apt-get update && apt-get install -y apt-transport-https gnupg2
+apt-get install -y curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+apt-get update
+apt-get install -y kubectl
+kubectl version
+
+#kind install
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-linux-amd64
+chmod +x ./kind
+#FIGURE OUT KIND VERIFY VERSION
+
+#install node.js
+apt-get install -y nodejs
+node --version
+
