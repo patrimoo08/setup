@@ -7,6 +7,13 @@ apt-get update
 apt-get install -y git
 git --version
 
+#doesn't quite work yet also need to learn how to pull latest version from repo
+gitversion=$(git --version)
+    if [$gitversion == 'git version']
+        then echo "$gitversion"
+        else apt-get install -y git 
+        echo "$gitversion"
+
 #go install
 apt-get install -y golang
 go version
@@ -37,3 +44,23 @@ chmod +x ./kind
 apt-get install -y nodejs
 node --version
 
+#install terraform
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt install -y software-properties-common
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install -y terraform
+terraform -version
+
+#install VS Code
+sudo apt-get install -y wget
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install -y code
+#code acts funny on docker windows in ubuntu
+
+#install terminology
+
+sudo apt-get install -y terminology
