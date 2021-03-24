@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #initial update packages
 apt-get update
@@ -13,6 +13,7 @@ gitversion=$(apt-cache policy git | awk '/Installed/ {print $2;}')
         then echo "$gitversion"
         else apt-get install -y git
         echo "$gitversion"
+    fi
 
 #install go
 #grab latest version of go and store as variable
@@ -24,6 +25,7 @@ goversion=$(apt-cache policy golang | awk '/Installed/ {print $2;}')
         then echo "$goversion"
         else apt-get install -y golang
         echo "$goversion"
+    fi
 
 #install docker
 #grab latest version of docker and store as variable
@@ -35,6 +37,7 @@ dockerversion=$(apt-cache policy docker.io | awk '/Installed/ {print $2;}')
         then echo "$dockerversion"
         else apt-get install -y docker.io
         echo "$dockerversion"
+    fi
 
 #install fzf
 #grab latest version of fzf and store as variable
@@ -46,6 +49,7 @@ fzfversion=$(apt-cache policy fzf | awk '/Installed/ {print $2;}')
         then echo "$fzfversion"
         else apt-get install -y fzf
         echo "$fzfversion"
+    fi
 
 #add kubectl to repo
 apt-get update && apt-get install -y apt-transport-https gnupg2
@@ -63,6 +67,7 @@ kubectlversion=$(apt-cache policy kubectl | awk '/Installed/ {print $2;}')
         then echo "$kubectlversion"
         else apt-get install -y kubectl
         echo "$kubectlversion"
+    fi 
 
 #kind install
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-linux-amd64
@@ -79,12 +84,13 @@ nodejsversion=$(apt-cache policy nodejs | awk '/Installed/ {print $2;}')
         then echo "$nodejsversion"
         else apt-get install -y nodejs
         echo "$nodejsversion"
+    fi
 
 #add terraform repo
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt install -y software-properties-common
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update 
+curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+apt install -y software-properties-common
+apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+apt-get update 
 
 #install terraform
 #grab latest version of terraform and store as variable
@@ -96,15 +102,16 @@ terraformversion=$(apt-cache policy terraform | awk '/Installed/ {print $2;}')
         then echo "$terraformversion"
         else apt-get install -y terraform
         echo "$terraformversion"
+    fi
 
 #install VS Code
-sudo apt-get install -y wget
+apt-get install -y wget
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt-get install apt-transport-https
-sudo apt-get update
-sudo apt-get install -y code
+install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+apt-get install apt-transport-https
+apt-get update
+apt-get install -y code
 #code acts funny on docker windows in ubuntu
 
 #install terminology
@@ -117,3 +124,4 @@ terminologyversion=$(apt-cache policy terminology | awk '/Installed/ {print $2;}
         then echo "$terminologyversion"
         else apt-get install -y terminology
         echo "$terminologyversion"
+    fi
